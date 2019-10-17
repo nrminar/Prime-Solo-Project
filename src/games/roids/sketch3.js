@@ -12,12 +12,14 @@ export default function sketch (p) {
     document.onkeydown = function(evt) {
         evt = evt || window.event;
         var keyCode = evt.keyCode;
-        if (keyCode >= 37 && keyCode <= 40 && keyCode !== 32) {
+        if ((keyCode >= 37 && keyCode <= 40) || (keyCode === 32)) {
             return false;
+        // }else if(keyCode != 32){
+        //     return false;
         }
     }
     p.setup = function(){
-        p.createCanvas(p.windowWidth, p.windowHeight);
+        p.createCanvas(800, 600);
         ship = new Ship();
         for(let i=0; i<5; i++){
             asteroids.push(new Asteroid());
@@ -73,8 +75,12 @@ export default function sketch (p) {
         }
     }
     p.keyReleased = function(){
-        ship.setRotation(0);
-        ship.thrust(false);
+        if(p.keyCode === p.RIGHT_ARROW || p.keyCode === p.LEFT_ARROW){
+            ship.setRotation(0);
+        }
+        if(p.keyCode === p.UP_ARROW){
+            ship.thrust(false);
+        }
     }
     class Ship{
         constructor(){

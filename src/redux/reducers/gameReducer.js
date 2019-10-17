@@ -17,8 +17,27 @@ const allGamesReducer = (state = [], action)=>{
             return state;
       }
   };
+
+const scoreReducer = (state = [], action)=>{
+  switch(action.type){
+    case 'SET_SCORES':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+const commentReducer = (state = [], action)=>{
+  switch(action.type){
+    case 'SET_COMMENTS':
+      return action.payload;
+    default:
+      return state;
+  }
+}
   
   export default combineReducers({
     gameReducer,
     allGamesReducer,
+    scoreReducer,
+    commentReducer,
   });

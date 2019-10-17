@@ -6,13 +6,15 @@ import { connect } from 'react-redux';
 class  GameItem extends Component {
     goGame = (id) =>{
         this.props.history.push(`/game/${id}`)
+        this.props.dispatch({ type: 'FETCH_SCORES', payload: id})
+        this.props.dispatch({ type: 'FETCH_COMMENTS', payload: id})
     }
     render() {
       return (
         <div className="game">
             <Router>
                     <div onClick = {() => this.goGame(this.props.game.id)}>
-                        <img src = {this.props.game.image}/>
+                        <img src = {this.props.game.image} alt = "game"/>
                         <h3>{this.props.game.name}</h3>
                     </div>
             </Router>

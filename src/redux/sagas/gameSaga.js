@@ -21,12 +21,30 @@ function* fetchOneGame(action){
         const response = yield axios.get('/api/game/' + action.payload)
         yield put ({ type: 'SET_GAME', payload: response.data})
     }catch (error) {
-        console.log('FETCH ONE GAME ERROR:', error)
+        console.log('FETCH ONE GAME ERROR:', error);
+    }
+}
+function* fetchScores(action){
+    try{
+        const response = yield axios.get('api/score/' + action.payload)
+        yield put ({ type: 'SET_SCORES', payload: response.data})
+    }catch(error){
+        console.log('FETCH SCORES ERROR:', error);
+    }
+}
+function* fetchComments(action){
+    try{
+        const response = yield axios.get('api/comment/' + action.payload)
+        yield put ({ type: 'SET_COMMENTS', payload: response.data})
+    }catch(error){
+        console.log('FETCH COMMENTS ERROR:', error);
     }
 }
 function* gameSaga() {
     yield takeLatest('FETCH_GAMES', fetchGames);
     yield takeLatest('FETCH_ONE_GAME', fetchOneGame);
+    yield takeLatest('FETCH_SCORES', fetchScores);
+    yield takeLatest('FETCH_COMMENTS', fetchComments);
 }
 
 export default gameSaga;

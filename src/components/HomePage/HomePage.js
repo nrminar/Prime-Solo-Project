@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Axios from 'axios';
 import GameItem from '../GameItem/GameItem'
 import styled from 'styled-components'
 
@@ -22,6 +21,7 @@ class  HomePage extends Component {
                     <GameItem game = {game} index = {index} />
                 )
             })}
+            <p>{JSON.stringify(this.props)}</p>
         </GameList>
       );
     }

@@ -3,7 +3,6 @@ export default function sketch (p) {
     const layer = [];
     const lines = [];
     let play;
-    let hit = false;
     let timeCount = -15;
     document.onkeydown = function(evt) {
         evt = evt || window.event;
@@ -105,7 +104,6 @@ export default function sketch (p) {
                 play.pos.y += 5;
             }
             layer.sort(compare);
-            console.log('output layer:', layer);
         }
     }
     class closeLine{

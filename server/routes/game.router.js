@@ -25,12 +25,13 @@ router.get(`/:id`, (req, res) => {
         console.log('GET GAMES ERROR:', error);
     })
 });
+// router.get('/scores', (req, res) =>{
+//     let queryText = ``
+// })
 
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
 
-});
 
 module.exports = router;
