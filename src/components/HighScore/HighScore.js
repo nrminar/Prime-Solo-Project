@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class  HighScore extends Component {
-    componentDidMount = () =>{
-        this.props.dispatch({ type: 'FETCH_SCORES', payload: this.props.gameId})
-    }
     render() {
       return (
         <div className="scoreTable">

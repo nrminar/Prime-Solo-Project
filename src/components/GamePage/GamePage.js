@@ -13,10 +13,15 @@ class  GamePage extends Component {
 
   }
   componentDidMount = () =>{
-      this.ID();
+      this.getInfo();
+      this.getComments();
   }
-  ID = () =>{
+  getInfo = () =>{
     this.props.dispatch({ type: 'FETCH_ONE_GAME', payload: this.props.match.params.id })
+    this.props.dispatch({ type: 'FETCH_SCORES', payload: this.props.match.params.id})
+  }
+  getComments = () =>{
+    this.props.dispatch({ type: 'FETCH_COMMENTS', payload: this.props.match.params.id})
   }
   render() {
     let name = this.props.reduxState.game.gameReducer.name
@@ -26,15 +31,15 @@ class  GamePage extends Component {
     if(name === 'Asteroids'){
       game =  <P5Wrapper sketch={asteroids}></P5Wrapper>
       score = <HighScore gameId={2}/>
-      comments = <CommentList gameId={2}/>
+      comments = <CommentList gameId={2} getComments = {this.getComments}/>
     }else if(name === 'Falling Spheres'){
       game =  <P5Wrapper sketch={falling}></P5Wrapper>
       score = <HighScore gameId={1}/>
-      comments = <CommentList gameId={1}/>
+      comments = <CommentList gameId={1} getComments = {this.getComments}/>
     }else if(name === 'Aim Booster'){
       game =  <P5Wrapper sketch={aim}></P5Wrapper>
       score = <HighScore gameId={3}/>
-      comments = <CommentList gameId={3}/>
+      comments = <CommentList gameId={3} getComments = {this.getComments}/>
     }
     return (
       <div className="game">
@@ -42,7 +47,7 @@ class  GamePage extends Component {
         <div>{score}</div>
         <br/>
         <div>{comments}</div>
-        <p>{JSON.stringify(this.props.reduxState.game.gameReducer)}</p>
+        {/* <p>{JSON.stringify(this.props.reduxState)}</p> */}
       </div>
     );
   }

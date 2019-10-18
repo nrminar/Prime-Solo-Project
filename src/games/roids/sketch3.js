@@ -12,10 +12,8 @@ export default function sketch (p) {
     document.onkeydown = function(evt) {
         evt = evt || window.event;
         var keyCode = evt.keyCode;
-        if ((keyCode >= 37 && keyCode <= 40) || (keyCode === 32)) {
+        if (((keyCode >= 37 && keyCode <= 40) || (keyCode === 32)) && (evt.target === document.body)) {
             return false;
-        // }else if(keyCode != 32){
-        //     return false;
         }
     }
     p.setup = function(){

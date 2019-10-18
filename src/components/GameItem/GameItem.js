@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 class  GameItem extends Component {
     goGame = (id) =>{
         this.props.history.push(`/game/${id}`)
-        this.props.dispatch({ type: 'FETCH_SCORES', payload: id})
-        this.props.dispatch({ type: 'FETCH_COMMENTS', payload: id})
     }
     render() {
       return (

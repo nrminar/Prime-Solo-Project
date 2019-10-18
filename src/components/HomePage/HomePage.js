@@ -21,7 +21,7 @@ class  HomePage extends Component {
                     <GameItem game = {game} index = {index} />
                 )
             })}
-            <p>{JSON.stringify(this.props)}</p>
+            <p>{JSON.stringify(this.props.reduxState.user)}</p>
         </GameList>
       );
     }

@@ -40,11 +40,38 @@ function* fetchComments(action){
         console.log('FETCH COMMENTS ERROR:', error);
     }
 }
+function* postComment(action){
+    try{
+        yield axios.post('/api/comment', action.payload)
+        yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+    }catch(error){
+        console.log('POST COMMENT ERROR:', error);
+    }
+}
+function* updateComment(action){
+    try{
+        yield axios.put('api/comment', action.payload)
+        yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+    }catch(error){
+        console.log('UPDATE COMMENT ERROR:', error);
+    }
+}
+function* deleteComment(action){
+    try{
+        yield axios.delete('api/comment/' + action.payload.id)
+        yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+    }catch(error){
+        console.log('DELETE COMMENT ERROR:', error);
+    }
+}
 function* gameSaga() {
     yield takeLatest('FETCH_GAMES', fetchGames);
     yield takeLatest('FETCH_ONE_GAME', fetchOneGame);
     yield takeLatest('FETCH_SCORES', fetchScores);
     yield takeLatest('FETCH_COMMENTS', fetchComments);
+    yield takeLatest('POST_COMMENT', postComment);
+    yield takeLatest('UPDATE_COMMENT', updateComment);
+    yield takeLatest('DELETE_COMMENT', deleteComment);
 }
 
 export default gameSaga;
