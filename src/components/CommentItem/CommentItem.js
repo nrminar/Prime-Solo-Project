@@ -17,14 +17,20 @@ class  CommentItem extends Component {
         this.setState({ isEdit: !this.state.isEdit})
     }
     saveComment = () =>{
-        this.props.dispatch({ type: 'UPDATE_COMMENT', payload: {id: this.props.comment.id , comment: this.state.comment, game: this.props.comment.game_id}})
+        if(this.props.isAdmin){
+            this.props.dispatch({ type: 'ADMIN_UPDATE_COMMENT', payload: {id: this.props.comment.id , comment: this.state.comment, game: this.props.comment.game_id}})
+        }else{
+            this.props.dispatch({ type: 'UPDATE_COMMENT', payload: {id: this.props.comment.id , comment: this.state.comment, game: this.props.comment.game_id}})
+        }
         this.setState({ isEdit: !this.state.isEdit})
     }
     handleChange = (event) =>{
         this.setState({ comment: event.target.value})
     }
     deleteComment = () =>{
-        this.props.dispatch({ type: 'DELETE_COMMENT', payload: {id: this.props.comment.id , game: this.props.comment.game_id}})
+        if(window.confirm('Are you sure you want to delete this comment?')){
+            this.props.dispatch({ type: 'DELETE_COMMENT', payload: {id: this.props.comment.id , game: this.props.comment.game_id}})
+        }
     }
     render() {
       return (
@@ -32,11 +38,17 @@ class  CommentItem extends Component {
             {!this.state.isEdit ?
             <>
             <p>{this.props.comment.username}: {this.props.comment.comment}</p>
-            {(this.props.comment.username !== this.props.reduxState.user.username) ? '' : 
+            {(this.props.comment.username === this.props.reduxState.user.username) ? 
             <>
             <button onClick = {this.editComment}>Edit</button>
             <button onClick = {this.deleteComment}>Delete</button>
-            </>
+            </> 
+            : (this.props.reduxState.user.admin) ?
+            <>
+            <button onClick = {this.editComment}>Edit</button>
+            <button onClick = {this.deleteComment}>Delete</button>
+            </> 
+            : ''
             }
             </> :
             <>

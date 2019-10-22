@@ -17,14 +17,25 @@ router.post('/', (req, res) => {
         })
 });
 router.get('/:id', (req, res) =>{
-    let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id WHERE "game_id" = $1 ORDER BY "comments".id DESC;`
-    pool.query(query, [req.params.id])
-        .then((result) =>{
-        res.send(result.rows);
-        console.log('GET COMMENTS SUCCESS', result.rows);
-        }).catch((error) =>{
-        console.log('GET COMMENTS ERROR:', error);
-        })
+    if(req.params.id === 'admin'){
+        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id ORDER BY "comments".id DESC;`
+        pool.query(query)
+            .then((result) =>{
+            res.send(result.rows);
+            console.log('GET ALL COMMENTS SUCCESS', result.rows);
+            }).catch((error) =>{
+            console.log('GET ALL COMMENTS ERROR:', error);
+            })
+    }else{
+        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id WHERE "game_id" = $1 ORDER BY "comments".id DESC;`
+        pool.query(query, [req.params.id])
+            .then((result) =>{
+            res.send(result.rows);
+            console.log('GET COMMENTS SUCCESS', result.rows);
+            }).catch((error) =>{
+            console.log('GET COMMENTS ERROR:', error);
+            })
+    }
 })
 router.put('/', (req, res) =>{
     let comment = req.body.comment

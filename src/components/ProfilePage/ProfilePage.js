@@ -4,7 +4,7 @@ class  ProfilePage extends Component {
     render() {
       return (
         <div className="App">
-            
+            <p>Profile Page</p>
         </div>
       );
     }

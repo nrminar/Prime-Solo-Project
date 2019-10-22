@@ -5,6 +5,7 @@ import falling from '../../games/falling/sketch4';
 import aim from '../../games/aim/sketch2';
 import HighScore from '../HighScore/HighScore';
 import CommentList from '../Comments/CommentList';
+import FavoriteItem from '../FavoriteItem/FavoriteItem';
 import { connect } from 'react-redux';
 import './gamePage.css';
 
@@ -31,21 +32,22 @@ class  GamePage extends Component {
     if(name === 'Asteroids'){
       game =  <P5Wrapper sketch={asteroids}></P5Wrapper>
       score = <HighScore gameId={2}/>
-      comments = <CommentList gameId={2} getComments = {this.getComments}/>
+      comments = <CommentList gameId={2}/>
     }else if(name === 'Falling Spheres'){
       game =  <P5Wrapper sketch={falling}></P5Wrapper>
       score = <HighScore gameId={1}/>
-      comments = <CommentList gameId={1} getComments = {this.getComments}/>
+      comments = <CommentList gameId={1}/>
     }else if(name === 'Aim Booster'){
       game =  <P5Wrapper sketch={aim}></P5Wrapper>
       score = <HighScore gameId={3}/>
-      comments = <CommentList gameId={3} getComments = {this.getComments}/>
+      comments = <CommentList gameId={3}/>
     }
     return (
       <div className="game">
         <div>{game}</div>
         <div>{score}</div>
         <br/>
+        <FavoriteItem gameId = {this.props.match.params.id}/>
         <div>{comments}</div>
         {/* <p>{JSON.stringify(this.props.reduxState)}</p> */}
       </div>

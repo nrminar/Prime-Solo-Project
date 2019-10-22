@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import HomePage from '../HomePage/HomePage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import GamePage from '../GamePage/GamePage';
+import AdminPage from '../AdminPage/AdminPage';
 
 import './App.css';
 
@@ -67,6 +68,13 @@ class App extends Component {
               component={ProfilePage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
+            {!this.props.user.admin ? 
+            <Redirect exact from="/admin" to="/home" /> :
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminPage}
+            />}
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
@@ -74,5 +82,7 @@ class App extends Component {
       </Router>
   )}
 }
-
-export default connect()(App);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+export default connect(mapStateToProps)(App);

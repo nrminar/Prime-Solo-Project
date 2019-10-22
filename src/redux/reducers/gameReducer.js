@@ -33,10 +33,19 @@ const commentReducer = (state = [], action)=>{
       return state;
   }
 }
+const favoriteReducer = (state = false, action)=>{
+  switch(action.type){
+    case 'SET_FAVORITE':
+      return action.payload;
+    default:
+      return state;
+  }
+}
   
-  export default combineReducers({
-    gameReducer,
-    allGamesReducer,
-    scoreReducer,
-    commentReducer,
-  });
+export default combineReducers({
+  gameReducer,
+  allGamesReducer,
+  scoreReducer,
+  commentReducer,
+  favoriteReducer,
+});
