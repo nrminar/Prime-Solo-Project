@@ -101,6 +101,30 @@ function* removeFavorite(action){
         console.log('REMOVE FAVORITE', error)
     }
 }
+function* removeMyFavorite(action){
+    try{
+        yield axios.delete('api/favorite/' + action.payload)
+        yield put({ type: 'FETCH_FAV_GAMES', payload: action.payload })
+    }catch(error){
+        console.log('REMOVE FAVORITE', error)
+    }
+}
+function* fetchAllFavorites(){
+    try{
+        const response =  yield axios.get('api/favorite/all')
+        yield put({ type: 'SET_FAV_GAMES', payload: response.data})
+    }catch(error){
+        console.log('FETCH ALL FAVS ERROR:', error)
+    }
+}
+function* fetchMyComments(){
+    try{
+        const response = yield axios.get('api/comment/mine')
+        yield put({ type: 'SET_MY_COMMENTS', payload: response.data})
+    }catch(error){
+        console.log('FETCH MY COMMENTS ERROR:', error)
+    }
+}
 function* gameSaga() {
     yield takeLatest('FETCH_GAMES', fetchGames);
     yield takeLatest('FETCH_ONE_GAME', fetchOneGame);
@@ -114,6 +138,9 @@ function* gameSaga() {
     yield takeLatest('FETCH_FAVORITE', fetchFavorite)
     yield takeLatest('ADD_FAVORITE', addFavorite);
     yield takeLatest('REMOVE_FAVORITE', removeFavorite);
+    yield takeLatest('FETCH_FAV_GAMES', fetchAllFavorites);
+    yield takeLatest('REMOVE_MY_FAVORITE', removeMyFavorite);
+    yield takeLatest('FETCH_MY_COMMENTS', fetchMyComments);
 }
 
 export default gameSaga;

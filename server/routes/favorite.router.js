@@ -5,14 +5,26 @@ const router = express.Router();
 router.get('/:id', (req, res) => {
     let user = req.user.id
     let game = req.params.id
-    let queryText = `SELECT * FROM "favorites" WHERE ("user_id" = $1) AND ("game_id" = $2);`;
-    pool.query(queryText, [user, game])
+    if(req.params.id === 'all'){
+        let queryText = `SELECT "games".* FROM "games" JOIN "favorites" ON "favorites".game_id = "games".id WHERE "favorites".user_id = $1;`
+        pool.query(queryText, [user])
         .then((result) =>{
+            console.log('GET ALL FAVS SUCCESS:', result.rows)
             res.send(result.rows)
         }).catch((error) =>{
             res.sendStatus(500);
             console.log('GET GAMES ERROR:', error);
         })
+    }else{
+        let queryText = `SELECT * FROM "favorites" WHERE ("user_id" = $1) AND ("game_id" = $2);`;
+        pool.query(queryText, [user, game])
+            .then((result) =>{
+                res.send(result.rows)
+            }).catch((error) =>{
+                res.sendStatus(500);
+                console.log('GET GAMES ERROR:', error);
+            })
+        }
 });
 router.post('/:id', (req, res) =>{
     let user = req.user.id

@@ -9,7 +9,7 @@ class  GameItem extends Component {
     }
     render() {
       return (
-        <div className="game">
+        <div>
             <Router>
                     <div onClick = {() => this.goGame(this.props.game.id)}>
                         <img src = {this.props.game.image} alt = "game"/>

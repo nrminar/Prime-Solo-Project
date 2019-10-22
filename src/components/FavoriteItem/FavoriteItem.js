@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, Icon } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 class  FavoriteItem extends Component {
   componentDidMount = () =>{
@@ -19,8 +21,14 @@ class  FavoriteItem extends Component {
     return (
       <div className = "favButton">
           {!this.props.reduxState.game.favoriteReducer ? 
-          <button onClick = {this.favClick}>Favorite</button> :
-          <button onClick = {this.removeFavClick}>Un-Favorite</button> 
+          <Button icon labelPosition='left' onClick={this.favClick}>
+            <Icon name='star outline'/>
+            Favorite
+          </Button>:
+          <Button icon labelPosition='left' onClick={this.removeFavClick}>
+            <Icon name='star' color='yellow'/>
+            Favorite
+          </Button>
           }
       </div>
     );

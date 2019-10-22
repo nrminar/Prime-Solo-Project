@@ -8,8 +8,8 @@ router.post('/', (req, res) => {
     let game = req.body.game
     let query = `INSERT INTO "comments" ("user_id", "game_id", "comment") VALUES ($1, $2, $3);`
     pool.query(query, [user, game, comment])
-        .then((result) =>{
-        res.send(result.rows);
+        .then(() =>{
+        res.sendStatus(201);
         console.log('POST COMMENT SUCCESS');
         }).catch((error)=>{
         res.sendStatus(500);
@@ -20,6 +20,16 @@ router.get('/:id', (req, res) =>{
     if(req.params.id === 'admin'){
         let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id ORDER BY "comments".id DESC;`
         pool.query(query)
+            .then((result) =>{
+            res.send(result.rows);
+            console.log('GET ALL COMMENTS SUCCESS', result.rows);
+            }).catch((error) =>{
+            console.log('GET ALL COMMENTS ERROR:', error);
+            })
+    }else if(req.params.id === 'mine'){
+        let user = req.user.id
+        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id WHERE "comments".user_id = $1;`
+        pool.query(query, [user])
             .then((result) =>{
             res.send(result.rows);
             console.log('GET ALL COMMENTS SUCCESS', result.rows);

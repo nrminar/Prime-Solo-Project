@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class  HighScore extends Component {
     render() {
       return (
-        <div className="scoreTable">
+        <div>
             <h3>High Scores</h3>
             <table>
                 <thead>

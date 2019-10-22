@@ -41,6 +41,22 @@ const favoriteReducer = (state = false, action)=>{
       return state;
   }
 }
+const allFavoritesReducer = (state = [], action)=>{
+  switch(action.type){
+    case 'SET_FAV_GAMES':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+const myCommentsReducer = (state = [], action)=>{
+  switch(action.type){
+    case 'SET_MY_COMMENTS':
+      return action.payload
+    default:
+      return state;
+  }
+}
   
 export default combineReducers({
   gameReducer,
@@ -48,4 +64,6 @@ export default combineReducers({
   scoreReducer,
   commentReducer,
   favoriteReducer,
+  allFavoritesReducer,
+  myCommentsReducer,
 });

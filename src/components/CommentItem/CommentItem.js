@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Button, Icon, Card, Image } from 'semantic-ui-react';
 
 class  CommentItem extends Component {
     state = {
@@ -40,13 +41,21 @@ class  CommentItem extends Component {
             <p>{this.props.comment.username}: {this.props.comment.comment}</p>
             {(this.props.comment.username === this.props.reduxState.user.username) ? 
             <>
-            <button onClick = {this.editComment}>Edit</button>
-            <button onClick = {this.deleteComment}>Delete</button>
+            <Button icon onClick = {this.editComment}>
+                <Icon name='edit'/>
+            </Button>
+            <Button onClick = {this.deleteComment}>
+                <Icon name='delete'/>
+            </Button>
             </> 
             : (this.props.reduxState.user.admin) ?
             <>
-            <button onClick = {this.editComment}>Edit</button>
-            <button onClick = {this.deleteComment}>Delete</button>
+            <Button icon onClick = {this.editComment}>
+                <Icon name='edit'/>
+            </Button>
+            <Button onClick = {this.deleteComment}>
+                <Icon name='delete'/>
+            </Button>
             </> 
             : ''
             }
