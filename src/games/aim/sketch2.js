@@ -35,6 +35,11 @@ export default function sketch (p) {
             .then((response) =>{
                 console.log('test post response:', response)
             }).catch((error) =>{console.log('test error:', error)})
+            if(window.confirm(`You lost with a score of: ${score} Would you like to play again?`)){
+                window.location.reload(true);
+            }else{
+                console.log('no new game')
+            }
         }
     }
     p.mousePressed = function(){

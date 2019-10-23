@@ -51,18 +51,22 @@ class  CommentItem extends Component {
             <>
                 <Button onClick = {this.deleteComment} extra floated='right'>
                     <Icon name='delete' color='red'/>
+                    Delete
                 </Button>
                 <Button icon onClick = {this.editComment} extra floated='right'>
                     <Icon name='edit' color='blue'/>
+                    Edit
                 </Button>
             </> 
             : (this.props.reduxState.user.admin) ?
             <>
                 <Button onClick = {this.deleteComment} extra floated='right'>
                     <Icon name='delete' color='red'/>
+                    Delete
                 </Button>
                 <Button icon onClick = {this.editComment} extra floated='right'>
                     <Icon name='edit' color='blue'/>
+                    Edit
                 </Button>
             </> 
             : ''

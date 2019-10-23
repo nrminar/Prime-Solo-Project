@@ -1,11 +1,15 @@
 import p5 from 'p5'
+import axios from 'axios';
+import gameStore from '../connect';
 
 export default function sketch (p) {
     let ship;
     let asteroids = [];
     let lasers = [];
     let score = 0;
-    let lives = 5;
+    let lives = 10;
+    let gameID = 2;
+    let user;
     const c = 5;
     let G =6;
     let dt= .1;
@@ -17,6 +21,7 @@ export default function sketch (p) {
         }
     }
     p.setup = function(){
+        user = gameStore.get().user.id;
         p.createCanvas(800, 600);
         ship = new Ship();
         for(let i=0; i<5; i++){
@@ -37,6 +42,11 @@ export default function sketch (p) {
             if(distance < 400 && distance > 40){
                 ship.pull(asteroids[i])
             }
+            if((distance < (ship.r + asteroids[i].r)) && (asteroids[i].r >= ship.r)){
+                lives--;
+                asteroids.splice(i, 1);
+                asteroids.push(new Asteroid());
+            }
         }
         for(let i=lasers.length -1; i>=0; i--){
             lasers[i].show();
@@ -47,12 +57,26 @@ export default function sketch (p) {
                         let newAsteroids = asteroids[j].split();
                         asteroids.push(newAsteroids[0]);
                         asteroids.push(newAsteroids[1]);
+                    }else{
+                        asteroids.push(new Asteroid());
                     }
                     asteroids.splice(j, 1);
                     lasers.splice(i, 1);
                     score++;
                     break;
                 }
+            }
+        }
+        if(lives < 1){
+            p.noLoop();
+            axios.post('/api/score', {game: gameID, user: user, score: score})
+            .then((response) =>{
+                console.log('test post response:', response)
+            }).catch((error) =>{console.log('test error:', error)})
+            if(window.confirm(`You lost with a score of: ${score} Would you like to play again?`)){
+                window.location.reload(true);
+            }else{
+                console.log('no new game')
             }
         }
         ship.show();

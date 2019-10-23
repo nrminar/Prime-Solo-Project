@@ -1,7 +1,12 @@
+import axios from 'axios';
+import gameStore from '../connect';
+
 export default function sketch (p) {
 
     const layer = [];
     const lines = [];
+    let gameID = 1;
+    let user;
     let play;
     let timeCount = -15;
     document.onkeydown = function(evt) {
@@ -20,6 +25,7 @@ export default function sketch (p) {
         return difference;
     }
     p.setup = function(){
+       user = gameStore.get().user.id;
        p.createCanvas(800, 600);
        p.stroke(0);
        p.noFill();
@@ -27,9 +33,9 @@ export default function sketch (p) {
             addLayer(800,300);
        }
        play = new player(0,0);
-       for(let i=0; i<8; i++){
-            lines.push(new closeLine(100, 100));
-       }
+    //    for(let i=0; i<8; i++){
+    //         lines.push(new closeLine(100, 100));
+    //    }
        setInterval(addLayer,1000);
     }
     p.draw = function() {
@@ -41,11 +47,11 @@ export default function sketch (p) {
             comet.show();
             comet.update();
         }
-        for(let i=0; i<lines.length; i++){
-            lines[i].update(i);
-            lines[i].show();
-        }
-        p.text(layer.length, 50, 50)
+        // for(let i=0; i<lines.length; i++){
+        //     lines[i].update(i);
+        //     lines[i].show();
+        // }
+        p.text(layer.length-15, 50, 50)
      }
     class comet{
         constructor(x, y) {
@@ -72,6 +78,10 @@ export default function sketch (p) {
         }
        collide(){
         if(p.dist(this.pos.x, this.pos.y, play.pos.x, play.pos.y) < ((this.r + 40)/2)){
+            axios.post('/api/score', {game: gameID, user: user, score: timeCount})
+            .then((response) =>{
+                console.log('test post response:', response)
+            }).catch((error) =>{console.log('test error:', error)})
             if(window.confirm(`You lost with a score of: ${timeCount} Would you like to play again?`)){
                 window.location.reload(true);
             }else{
