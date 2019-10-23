@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, Card, Input, Form, Header} from 'semantic-ui-react';
+import './LoginPage.css';
 
 class LoginPage extends Component {
   state = {
@@ -31,29 +33,29 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="login">
         {this.props.errors.loginMessage && (
-          <h2
+          <Header as="h2"
             className="alert"
             role="alert"
           >
             {this.props.errors.loginMessage}
-          </h2>
+          </Header>
         )}
-        <form onSubmit={this.login}>
+        <Form onSubmit={this.login}>
           <h1>Login</h1>
-          <div>
+          <Form.Field>
             <label htmlFor="username">
               Username:
-              <input
+              <Input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
             </label>
-          </div>
-          <div>
+          </Form.Field>
+          <Form.Field>
             <label htmlFor="password">
               Password:
               <input
@@ -63,24 +65,23 @@ class LoginPage extends Component {
                 onChange={this.handleInputChangeFor('password')}
               />
             </label>
-          </div>
+          </Form.Field>
           <div>
-            <input
-              className="log-in"
+            <Button
+              color='blue'
               type="submit"
               name="submit"
               value="Log In"
-            />
+            >Login
+            </Button>
           </div>
-        </form>
+        </Form>
         <center>
-          <button
-            type="button"
-            className="link-button"
+          <Button
             onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
           >
             Register
-          </button>
+          </Button>
         </center>
       </div>
     );

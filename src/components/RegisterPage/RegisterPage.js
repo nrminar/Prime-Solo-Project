@@ -5,17 +5,19 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
+    github: '',
   };
 
   registerUser = (event) => {
     event.preventDefault();
 
-    if (this.state.username && this.state.password) {
+    if (this.state.username && this.state.password && this.state.github) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
           username: this.state.username,
           password: this.state.password,
+          github: this.state.github,
         },
       });
     } else {
@@ -61,6 +63,17 @@ class RegisterPage extends Component {
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
+              />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="github">
+              Github Username:
+              <input
+                type="text"
+                name="github"
+                value={this.state.github}
+                onChange={this.handleInputChangeFor('github')}
               />
             </label>
           </div>

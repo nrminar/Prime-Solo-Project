@@ -17,7 +17,10 @@ router.post('/', (req, res) => {
         })
 });
 router.get('/:id', (req, res) =>{
-    let query = `SELECT "scores".score, "user".username FROM "scores" JOIN "user" ON "scores".user_id = "user".id WHERE "game_id" = $1 ORDER BY "score" DESC LIMIT 10;`
+    let query = 
+    `SELECT "scores".score, "user".username, "user".github FROM "scores" 
+    JOIN "user" ON "scores".user_id = "user".id 
+    WHERE "game_id" = $1 ORDER BY "score" DESC LIMIT 10;`
     pool.query(query, [req.params.id])
         .then((result) =>{
         res.send(result.rows);

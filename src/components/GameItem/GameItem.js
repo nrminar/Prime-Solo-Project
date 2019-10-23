@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {HashRouter as Router,} from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Card, Image } from 'semantic-ui-react';
 
 class  GameItem extends Component {
     goGame = (id) =>{
@@ -9,14 +10,16 @@ class  GameItem extends Component {
     }
     render() {
       return (
-        <div>
-            <Router>
-                    <div onClick = {() => this.goGame(this.props.game.id)}>
-                        <img src = {this.props.game.image} alt = "game"/>
-                        <h3>{this.props.game.name}</h3>
-                    </div>
-            </Router>
-        </div>
+          <Card onClick = {() => this.goGame(this.props.game.id)}>
+            <Card.Content >
+                <Router>
+                    <Image src = {this.props.game.image} alt = "game"/>
+                    <Card.Header textAlign='center'>
+                      {this.props.game.name}
+                    </Card.Header>
+                </Router>
+              </Card.Content>
+          </Card>
       );
     }
   }

@@ -53,6 +53,7 @@ function* updateComment(action){
     try{
         yield axios.put('api/comment', action.payload)
         yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+        yield put({ type: 'FETCH_MY_COMMENTS'})
     }catch(error){
         console.log('UPDATE COMMENT ERROR:', error);
     }
@@ -69,6 +70,7 @@ function* deleteComment(action){
     try{
         yield axios.delete('api/comment/' + action.payload.id)
         yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+        yield put({ type: 'FETCH_MY_COMMENTS'})
     }catch(error){
         console.log('DELETE COMMENT ERROR:', error);
     }

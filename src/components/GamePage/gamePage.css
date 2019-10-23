@@ -1,3 +1,40 @@
 .game{
+    padding-top: 100px;
     text-align: center;
+}
+.info{
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 100px;
+    text-align: center;
+}
+.score{
+    padding: 30px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    justify-self: end;
+}
+.comments{
+    padding: 30px;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    justify-self: start;
+}
+.favorite-row{
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 100px;
+    text-align: center;
+}
+.favorite{
+    padding-top: 20px;
+    padding-left: 190px;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    justify-self: start;
+}
+.howTo{
+    padding-top: 20px;
+    padding-right: 30px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    justify-self: end;
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GameItem from '../GameItem/GameItem'
-import styled from 'styled-components'
+import styled from 'styled-components' 
+import { Card } from 'semantic-ui-react'
 
 const GameList = styled.div`
-  display: inline-flex;
+  padding-top: 150px;
 `
 class  HomePage extends Component {
     state = {
@@ -16,12 +17,13 @@ class  HomePage extends Component {
     render() {
       return (
         <GameList>
-            {this.props.reduxState.game.allGamesReducer.map((game, index) =>{
-                return(
-                    <GameItem game = {game} index = {index} />
-                )
-            })}
-            <p>{JSON.stringify(this.props.reduxState.user)}</p>
+          <Card.Group centered>
+              {this.props.reduxState.game.allGamesReducer.map((game, index) =>{
+                  return(
+                      <GameItem game = {game} index = {index} />
+                  )
+              })}
+          </Card.Group>
         </GameList>
       );
     }

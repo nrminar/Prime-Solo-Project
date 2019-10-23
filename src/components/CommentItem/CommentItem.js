@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Icon, Card, Image } from 'semantic-ui-react';
+import { Button, Icon, Card, Image, Input } from 'semantic-ui-react';
 
 class  CommentItem extends Component {
     state = {
@@ -35,38 +35,52 @@ class  CommentItem extends Component {
     }
     render() {
       return (
-        <div className="comment">
+        <Card className="comment">
+            <Card.Content>
+                <Image floated='right' size='mini' src={`https://github.com/${this.props.comment.github}.png`}  />
             {!this.state.isEdit ?
             <>
-            <p>{this.props.comment.username}: {this.props.comment.comment}</p>
+            <Card.Header>{this.props.comment.username}</Card.Header>
+            {console.log(this.props.comment.name)}
+            <Card.Meta>{this.props.comment.name}</Card.Meta>
+            <Card.Description>
+                {this.props.comment.comment}
+            </Card.Description>
+            <Card.Content extra>
             {(this.props.comment.username === this.props.reduxState.user.username) ? 
             <>
-            <Button icon onClick = {this.editComment}>
-                <Icon name='edit'/>
-            </Button>
-            <Button onClick = {this.deleteComment}>
-                <Icon name='delete'/>
-            </Button>
+                <Button onClick = {this.deleteComment} extra floated='right'>
+                    <Icon name='delete' color='red'/>
+                </Button>
+                <Button icon onClick = {this.editComment} extra floated='right'>
+                    <Icon name='edit' color='blue'/>
+                </Button>
             </> 
             : (this.props.reduxState.user.admin) ?
             <>
-            <Button icon onClick = {this.editComment}>
-                <Icon name='edit'/>
-            </Button>
-            <Button onClick = {this.deleteComment}>
-                <Icon name='delete'/>
-            </Button>
+                <Button onClick = {this.deleteComment} extra floated='right'>
+                    <Icon name='delete' color='red'/>
+                </Button>
+                <Button icon onClick = {this.editComment} extra floated='right'>
+                    <Icon name='edit' color='blue'/>
+                </Button>
             </> 
             : ''
             }
+            </Card.Content>
             </> :
             <>
-            <p>{this.props.comment.username}:</p>
-            <input onChange = {(event) => this.handleChange(event)} value = {this.state.comment}></input>
-            <button onClick = {this.saveComment}>Save</button>
+            <Card.Header>{this.props.comment.username}:</Card.Header>
+            <Card.Meta>{this.props.comment.name}</Card.Meta>
+            <Input focus onChange = {(event) => this.handleChange(event)} value = {this.state.comment}></Input>
+            <Button onClick = {this.saveComment}>
+                <Icon color='green' name='check'/>
+                Save
+            </Button>
             </>
             }
-        </div>
+            </Card.Content>
+        </Card>
       );
     }
   }

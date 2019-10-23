@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import CommentItem from '../CommentItem/CommentItem';
+import { Card } from 'semantic-ui-react';
+import './Admin.css';
 
 class  AdminPage extends Component {
     componentDidMount = () =>{
@@ -13,12 +15,13 @@ class  AdminPage extends Component {
     render() {
       return (
         <div className="admin">
-            {this.props.reduxState.game.commentReducer.map((comment) =>{
-                return(
-                    <CommentItem comment = {comment} isAdmin = {true}/>
-                )
-            })}
-            {JSON.stringify(this.props.reduxState.game.commentReducer)};
+            <Card.Group centered >
+                {this.props.reduxState.game.commentReducer.map((comment) =>{
+                    return(
+                        <CommentItem comment = {comment} isAdmin = {true}/>
+                    )
+                })}
+            </Card.Group>
         </div>
       );
     }

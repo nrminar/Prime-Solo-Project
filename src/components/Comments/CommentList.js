@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CommentItem from '../CommentItem/CommentItem';
+import { Button, Input } from 'semantic-ui-react';
 
 class  CommentList extends Component {
   state = {
@@ -21,8 +22,8 @@ class  CommentList extends Component {
   render() {
     return (
       <div className="commentList">
-        <input ref={(ref) => this.commentInput= ref} onChange = {(event) => this.handleChange(event)} placeholder="Leave a Comment!"></input>
-        <button onClick = {this.handleSubmit}>Submit</button>
+        <Input focus ref={(ref) => this.commentInput= ref} onChange = {(event) => this.handleChange(event)} placeholder="Leave a Comment!"></Input>
+        <Button onClick = {this.handleSubmit}>Comment</Button>
           {this.props.reduxState.game.commentReducer.map((comment) =>{
             return (
               <CommentItem comment = {comment} />

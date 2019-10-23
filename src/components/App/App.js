@@ -8,10 +8,12 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import P5Wrapper from 'react-p5-wrapper';
+import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import styled from 'styled-components';
 
 import AboutPage from '../AboutPage/AboutPage';
 import HomePage from '../HomePage/HomePage';
@@ -19,8 +21,14 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import GamePage from '../GamePage/GamePage';
 import AdminPage from '../AdminPage/AdminPage';
 
+import header from '../../games/header/header.sketch';
+
 import './App.css';
 
+const Head = styled.div`
+  position: fixed;
+  z-index: 150;
+`
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
@@ -30,7 +38,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          <Head>
+            <Menu/>
+            <P5Wrapper sketch={header}></P5Wrapper>
+          </Head>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

@@ -18,7 +18,11 @@ router.post('/', (req, res) => {
 });
 router.get('/:id', (req, res) =>{
     if(req.params.id === 'admin'){
-        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id ORDER BY "comments".id DESC;`
+        let query = 
+        `SELECT "comments".*, "user".username, "user".github, "games".name  FROM "comments" 
+        JOIN "user" ON "comments".user_id = "user".id 
+        JOIN "games" ON "comments".game_id = "games".id 
+        ORDER BY "comments".id DESC;`
         pool.query(query)
             .then((result) =>{
             res.send(result.rows);
@@ -28,7 +32,11 @@ router.get('/:id', (req, res) =>{
             })
     }else if(req.params.id === 'mine'){
         let user = req.user.id
-        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id WHERE "comments".user_id = $1;`
+        let query = 
+        `SELECT "comments".*, "user".username, "user".github, "games".name FROM "comments" 
+        JOIN "user" ON "comments".user_id = "user".id 
+        JOIN "games" ON "comments".game_id = "games".id 
+        WHERE "comments".user_id = $1;`
         pool.query(query, [user])
             .then((result) =>{
             res.send(result.rows);
@@ -37,7 +45,11 @@ router.get('/:id', (req, res) =>{
             console.log('GET ALL COMMENTS ERROR:', error);
             })
     }else{
-        let query = `SELECT "comments".*, "user".username FROM "comments" JOIN "user" ON "comments".user_id = "user".id WHERE "game_id" = $1 ORDER BY "comments".id DESC;`
+        let query = 
+        `SELECT "comments".*, "user".username, "user".github, "games".name FROM "comments" 
+        JOIN "user" ON "comments".user_id = "user".id 
+        JOIN "games" ON "comments".game_id = "games".id 
+        WHERE "game_id" = $1 ORDER BY "comments".id DESC;`
         pool.query(query, [req.params.id])
             .then((result) =>{
             res.send(result.rows);

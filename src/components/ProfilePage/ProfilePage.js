@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GameItem from '../GameItem/GameItem';
-import { Tab, Button, Icon } from 'semantic-ui-react';
+import { Tab, Button, Icon, Card } from 'semantic-ui-react';
 import CommentItem from '../CommentItem/CommentItem';
+import styled from 'styled-components';
 
+const Profile = styled.div`
+  padding-top: 150px;
+  padding-left: 150px;
+  padding-right: 150px;
+`
 class  ProfilePage extends Component {
   state ={
     favorite: true
@@ -25,32 +31,34 @@ class  ProfilePage extends Component {
   }
   render() {
     const panes = [
+      { menuItem: 'My Comments', render: () => <Tab.Pane>
+        <Card.Group centered>
+          {this.props.reduxState.game.myCommentsReducer.map((comment) =>{
+              return (
+                <CommentItem comment = {comment} />
+              )
+            })}
+          </Card.Group>
+      </Tab.Pane> },
       { menuItem: 'My Favorite Games', render: () => <Tab.Pane>
          {this.props.reduxState.game.allFavoritesReducer.map((game) =>{
             return(
               <>
               <GameItem game = {game} />
               <Button icon labelPosition='left' onClick={() => this.removeFavorite(game.id)}>
-                <Icon name='delete'/>
+                <Icon color='red' name='delete'/>
                 Remove Favorite
-            </Button>
+              </Button>
               </>
-            )
-          })}
-      </Tab.Pane> },
-      { menuItem: 'My Comments', render: () => <Tab.Pane>
-        {this.props.reduxState.game.myCommentsReducer.map((comment) =>{
-            return (
-              <CommentItem comment = {comment} />
             )
           })}
       </Tab.Pane> }
     ]
-    const ProfilePageTabs = () => <Tab panes={panes} />
+    const ProfilePageTabs = () => <Tab panes={panes}/>
     return (
-      <div>
+      <Profile>
           <ProfilePageTabs />
-      </div>
+      </Profile>
     );
   }
 }

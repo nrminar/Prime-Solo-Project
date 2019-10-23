@@ -8,6 +8,7 @@ import CommentList from '../Comments/CommentList';
 import FavoriteItem from '../FavoriteItem/FavoriteItem';
 import { connect } from 'react-redux';
 import './gamePage.css';
+import { Card } from 'semantic-ui-react';
 
 class  GamePage extends Component {
   state = {
@@ -29,27 +30,42 @@ class  GamePage extends Component {
     let game;
     let score;
     let comments;
+    let howto;
     if(name === 'Asteroids'){
       game =  <P5Wrapper sketch={asteroids}></P5Wrapper>
       score = <HighScore gameId={2}/>
       comments = <CommentList gameId={2}/>
+      howto = <Card>How To Play: Shoot the asteroids! Don't get hit!</Card>
     }else if(name === 'Falling Spheres'){
       game =  <P5Wrapper sketch={falling}></P5Wrapper>
       score = <HighScore gameId={1}/>
       comments = <CommentList gameId={1}/>
+      howto = <Card>How To Play: Dodge The Spheres!</Card>
     }else if(name === 'Aim Booster'){
       game =  <P5Wrapper sketch={aim}></P5Wrapper>
       score = <HighScore gameId={3}/>
       comments = <CommentList gameId={3}/>
+      howto = <Card>How To Play: Click All the Circles!</Card>
     }
     return (
       <div className="game">
         <div>{game}</div>
-        <div>{score}</div>
-        <br/>
-        <FavoriteItem gameId = {this.props.match.params.id}/>
-        <div>{comments}</div>
-        {/* <p>{JSON.stringify(this.props.reduxState)}</p> */}
+        <div className="favorite-row">
+          <div className="howTo">
+            <div>{howto}</div>
+          </div>
+          <div className="favorite">
+            <FavoriteItem gameId = {this.props.match.params.id}/>
+          </div>
+        </div>
+        <div className="info">
+          <div className="score">
+            <div>{score}</div>
+          </div>
+          <div className="comments">
+            <div>{comments}</div>
+          </div>
+        </div>
       </div>
     );
   }
