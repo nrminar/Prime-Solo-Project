@@ -67,10 +67,16 @@ function* adminUpdateComment(action){
     }
 }
 function* deleteComment(action){
+    console.log('DELETE COMMENT ACTION:', action)
     try{
         yield axios.delete('api/comment/' + action.payload.id)
-        yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
-        yield put({ type: 'FETCH_MY_COMMENTS'})
+        if(action.payload.admin){
+            yield put({ type: 'FETCH_ALL_COMMENTS'})
+        }else if(action.payload.profile){
+            yield put({ type: 'FETCH_MY_COMMENTS'})
+        }else{
+            yield put({ type: 'FETCH_COMMENTS', payload: action.payload.game});
+        }
     }catch(error){
         console.log('DELETE COMMENT ERROR:', error);
     }

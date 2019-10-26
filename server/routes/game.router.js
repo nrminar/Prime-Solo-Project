@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/', (req, res) => {
+router.get('/',rejectUnauthenticated, (req, res) => {
     let queryText = `SELECT * FROM "games"`
     pool.query(queryText)
         .then((result) =>{
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
             console.log('GET GAMES ERROR:', error);
         })
 });
-router.get(`/:id`, (req, res) => {
+router.get(`/:id`,rejectUnauthenticated, (req, res) => {
     let queryText = `SELECT * FROM "games" WHERE "id" = $1`
     pool.query(queryText, [req.params.id])
         .then((result) =>{

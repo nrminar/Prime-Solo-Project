@@ -29,6 +29,10 @@ const Head = styled.div`
   position: fixed;
   z-index: 150;
 `
+const Back = styled.div`
+  position: fixed;
+  z-index: -50;
+`
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
@@ -40,8 +44,10 @@ class App extends Component {
         <div>
           <Head>
             <Menu/>
-            <P5Wrapper sketch={header}></P5Wrapper>
           </Head>
+          <Back>
+            <P5Wrapper sketch={header}></P5Wrapper>
+          </Back>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

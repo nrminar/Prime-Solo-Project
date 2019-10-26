@@ -30,7 +30,7 @@ export default function sketch (p) {
         // setInterval(asteroids.push(new Asteroid(), 1000))
     }
     p.draw = function(){
-        p.background(255);
+        p.background(200);
         p.textSize(20);
         p.text(`Score: ${score}`, 20, 20);
         p.text(`Lives: ${lives}`, 40, 40);

@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/:id', (req, res) => {
+router.get('/:id',rejectUnauthenticated, (req, res) => {
     let user = req.user.id
     let game = req.params.id
     if(req.params.id === 'all'){
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) => {
             })
         }
 });
-router.post('/:id', (req, res) =>{
+router.post('/:id',rejectUnauthenticated, (req, res) =>{
     let user = req.user.id
     let game = req.params.id
     let queryText = `INSERT INTO "favorites" ("user_id", "game_id", "favorite") VALUES ($1, $2, TRUE);`;
@@ -38,7 +39,7 @@ router.post('/:id', (req, res) =>{
             console.log('POST FAVORITE:', error)
         })
 });
-router.delete('/:id', (req, res) =>{
+router.delete('/:id',rejectUnauthenticated, (req, res) =>{
     let user = req.user.id
     let game = req.params.id
     let queryText = `DELETE FROM "favorites" WHERE ("user_id" = $1) AND ("game_id" = $2);`;

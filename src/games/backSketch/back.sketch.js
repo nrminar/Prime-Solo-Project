@@ -5,7 +5,7 @@ export default function sketch (p) {
 
     p.setup = function(){
         p.createCanvas(p.windowWidth, p.windowHeight);
-        for(let i=0; i<150; i++){
+        for(let i=0; i<200; i++){
             bubbles.push(new Bubbles());
         }
     }

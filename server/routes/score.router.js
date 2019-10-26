@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
     let score = req.body.score
     let user = req.body.user
     let game = req.body.game
@@ -16,7 +17,7 @@ router.post('/', (req, res) => {
         console.log('POST SCORE ERROR', error);
         })
 });
-router.get('/:id', (req, res) =>{
+router.get('/:id', rejectUnauthenticated,(req, res) =>{
     let query = 
     `SELECT "scores".score, "user".username, "user".github FROM "scores" 
     JOIN "user" ON "scores".user_id = "user".id 

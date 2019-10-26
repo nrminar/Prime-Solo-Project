@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, Input, Form, Header} from 'semantic-ui-react';
+import { Button, Modal, Input, Form, Icon} from 'semantic-ui-react';
 import './LoginPage.css';
 
 class LoginPage extends Component {
   state = {
     username: '',
     password: '',
+    open: false,
+    message: '',
   };
 
   login = (event) => {
@@ -22,6 +24,7 @@ class LoginPage extends Component {
       });
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      this.setState({ open: true, message: this.props.errors.loginMessage })
     }
   } // end login
 
@@ -34,14 +37,22 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="login">
-        {this.props.errors.loginMessage && (
-          <Header as="h2"
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.loginMessage}
-          </Header>
-        )}
+        <Modal
+          open={this.state.open}
+          size="large"
+          basic
+          centered
+          size='mini'
+        >
+          <Modal.Content>
+            <h3>{this.props.errors.loginMessage}</h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='green' onClick={()=>{this.setState({open: false})}} inverted>
+              <Icon name='checkmark' /> Got it
+            </Button>
+          </Modal.Actions>
+        </Modal>
         <Form onSubmit={this.login}>
           <h1>Login</h1>
           <Form.Field>

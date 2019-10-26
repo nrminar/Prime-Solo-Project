@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Icon, Card, Image, Input } from 'semantic-ui-react';
+import { Button, Icon, Card, Image, Input, Confirm } from 'semantic-ui-react';
 
 class  CommentItem extends Component {
     state = {
         comment: '',
         isEdit: false,
+        open: false,
     }
     componentDidMount = () =>{
         this.setComment();
@@ -29,10 +30,13 @@ class  CommentItem extends Component {
         this.setState({ comment: event.target.value})
     }
     deleteComment = () =>{
-        if(window.confirm('Are you sure you want to delete this comment?')){
-            this.props.dispatch({ type: 'DELETE_COMMENT', payload: {id: this.props.comment.id , game: this.props.comment.game_id}})
-        }
+        this.props.dispatch({ type: 'DELETE_COMMENT', payload: {id: this.props.comment.id , game: this.props.comment.game_id, admin: this.props.isAdmin, profile: this.props.profile}})
+        this.close();
     }
+
+    open = () => this.setState({ open: true })
+    close = () => this.setState({ open: false })
+
     render() {
       return (
         <Card className="comment">
@@ -41,18 +45,24 @@ class  CommentItem extends Component {
             {!this.state.isEdit ?
             <>
             <Card.Header>{this.props.comment.username}</Card.Header>
-            {console.log(this.props.comment.name)}
             <Card.Meta>{this.props.comment.name}</Card.Meta>
-            <Card.Description>
+            <Card.Description textAlign="left">
                 {this.props.comment.comment}
             </Card.Description>
-            <Card.Content extra>
+            <Card.Content extra="true">
             {(this.props.comment.username === this.props.reduxState.user.username) ? 
             <>
-                <Button onClick = {this.deleteComment} extra floated='right'>
+                <Button onClick = {this.open} extra floated='right'>
                     <Icon name='delete' color='red'/>
                     Delete
                 </Button>
+                <Confirm
+                    open={this.state.open}
+                    onCancel={this.close}
+                    onConfirm={this.deleteComment}
+                    basic
+                    size="mini"
+                />
                 <Button icon onClick = {this.editComment} extra floated='right'>
                     <Icon name='edit' color='blue'/>
                     Edit
@@ -60,10 +70,17 @@ class  CommentItem extends Component {
             </> 
             : (this.props.reduxState.user.admin) ?
             <>
-                <Button onClick = {this.deleteComment} extra floated='right'>
+                <Button onClick = {this.open} extra floated='right'>
                     <Icon name='delete' color='red'/>
                     Delete
                 </Button>
+                <Confirm
+                    open={this.state.open}
+                    onCancel={this.close}
+                    onConfirm={this.deleteComment}
+                    basic
+                    size="mini"
+                />
                 <Button icon onClick = {this.editComment} extra floated='right'>
                     <Icon name='edit' color='blue'/>
                     Edit

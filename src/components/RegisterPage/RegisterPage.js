@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Button, Modal, Input, Form, Icon} from 'semantic-ui-react';
+import './RegisterPage.css';
 
 class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
     github: '',
+    open: false,
+    message: '',
   };
 
   registerUser = (event) => {
@@ -22,6 +26,7 @@ class RegisterPage extends Component {
       });
     } else {
       this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.setState({ open: true, message: this.props.errors.loginMessage })
     }
   } // end registerUser
 
@@ -30,70 +35,80 @@ class RegisterPage extends Component {
       [propertyName]: event.target.value,
     });
   }
+  handleClose = () => this.setState({ open: false })
+  handleOpen = () => this.setState({ open: true })
 
   render() {
     return (
-      <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
-        <form onSubmit={this.registerUser}>
+      <div className="registerPage">
+        <Modal
+          open={this.state.open}
+          size="large"
+          basic
+          centered
+          size='mini'
+        >
+          <Modal.Content>
+            <h3>{this.props.errors.registrationMessage}</h3>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='green' onClick={()=>{this.setState({open: false})}} inverted>
+              <Icon name='checkmark' /> Got it
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        <Form onSubmit={this.registerUser}>
           <h1>Register User</h1>
-          <div>
+          <Form.Field>
             <label htmlFor="username">
               Username:
-              <input
+              <Input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
             </label>
-          </div>
-          <div>
+          </Form.Field>
+          <Form.Field>
             <label htmlFor="password">
               Password:
-              <input
+              <Input
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
             </label>
-          </div>
-          <div>
+          </Form.Field>
+          <Form.Field>
             <label htmlFor="github">
               Github Username:
-              <input
+              <Input
                 type="text"
                 name="github"
                 value={this.state.github}
                 onChange={this.handleInputChangeFor('github')}
               />
             </label>
-          </div>
-          <div>
-            <input
-              className="register"
+          </Form.Field>
+          <Form.Field>
+            <Button
+              color="blue"
               type="submit"
               name="submit"
               value="Register"
-            />
-          </div>
-        </form>
+            >
+            Register
+            </Button>
+          </Form.Field>
+        </Form>
         <center>
-          <button
-            type="button"
-            className="link-button"
+          <Button
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
           >
             Login
-          </button>
+          </Button>
         </center>
       </div>
     );

@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
     let comment = req.body.comment
     let user = req.body.user
     let game = req.body.game
@@ -16,7 +17,7 @@ router.post('/', (req, res) => {
         console.log('POST COMMENT ERROR', error);
         })
 });
-router.get('/:id', (req, res) =>{
+router.get('/:id',rejectUnauthenticated, (req, res) =>{
     if(req.params.id === 'admin'){
         let query = 
         `SELECT "comments".*, "user".username, "user".github, "games".name  FROM "comments" 
@@ -59,7 +60,7 @@ router.get('/:id', (req, res) =>{
             })
     }
 })
-router.put('/', (req, res) =>{
+router.put('/',rejectUnauthenticated, (req, res) =>{
     let comment = req.body.comment
     let id = req.body.id
     let query = `UPDATE "comments" SET "comment" = $1 WHERE "id" = $2;`
@@ -70,7 +71,7 @@ router.put('/', (req, res) =>{
             console.log('UPDATE COMMENT ERROR:', error);
         })
 })
-router.delete('/:id', (req, res) =>{
+router.delete('/:id',rejectUnauthenticated,(req, res) =>{
     let query = `DELETE FROM "comments" WHERE "id" = $1;`
     pool.query(query, [req.params.id])
         .then(() =>{

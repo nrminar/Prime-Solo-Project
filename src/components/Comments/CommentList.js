@@ -22,7 +22,7 @@ class  CommentList extends Component {
   render() {
     return (
       <div className="commentList">
-        <Input focus ref={(ref) => this.commentInput= ref} onChange = {(event) => this.handleChange(event)} placeholder="Leave a Comment!"></Input>
+        <input ref={(ref) => this.commentInput= ref} onChange = {(event) => this.handleChange(event)} placeholder="Leave a Comment!"></input>
         <Button onClick = {this.handleSubmit}>Comment</Button>
           {this.props.reduxState.game.commentReducer.map((comment) =>{
             return (

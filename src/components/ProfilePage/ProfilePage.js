@@ -35,7 +35,7 @@ class  ProfilePage extends Component {
         <Card.Group centered>
           {this.props.reduxState.game.myCommentsReducer.map((comment) =>{
               return (
-                <CommentItem comment = {comment} />
+                <CommentItem comment = {comment} profile = {true}/>
               )
             })}
           </Card.Group>
