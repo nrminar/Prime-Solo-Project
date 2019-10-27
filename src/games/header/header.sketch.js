@@ -10,7 +10,7 @@ export default function sketch (p) {
         }
     }
     p.draw = function(){
-        p.background('#ADEEFE');
+        p.background('#9CCAFE');
         for(let i=0; i<bubbles.length; i++){
             bubbles[i].show();
             bubbles[i].update();
@@ -24,8 +24,8 @@ export default function sketch (p) {
             this.vel = p5.Vector.random2D();
         }
         show(){
-            p.stroke(0);
-            p.fill(255);
+            p.stroke(255);
+            p.fill('rgba(255,255,255, 0.7)');
             p.circle(this.pos.x, this.pos.y, this.r);
         }
         update(){
