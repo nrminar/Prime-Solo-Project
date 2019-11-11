@@ -7,7 +7,7 @@ export default function sketch (p) {
     let asteroids = [];
     let lasers = [];
     let score = 0;
-    let lives = 10;
+    let lives = 3;
     let gameID = 2;
     let user;
     const c = 5;
