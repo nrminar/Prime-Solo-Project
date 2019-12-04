@@ -4,9 +4,6 @@ import P5Wrapper from 'react-p5-wrapper';
 import asteroids from '../../games/roids/sketch3';
 import falling from '../../games/falling/sketch4';
 import aim from '../../games/aim/sketch2';
-import scroller from '../../games/sideScroller/side.sketch';
-import invaders from '../../games/Invaders/invaders.sketch';
-import command from '../../games/command/space.command';
 
 import HighScore from '../HighScore/HighScore';
 import CommentList from '../Comments/CommentList';
@@ -15,6 +12,7 @@ import { connect } from 'react-redux';
 import './gamePage.css';
 import { Card } from 'semantic-ui-react';
 
+//renders the game and its comments, how to, and scores, contains highscore, commentlist, and favorite item componenet
 class  GamePage extends Component {
   state = {
 
@@ -51,21 +49,6 @@ class  GamePage extends Component {
       score = <HighScore gameId={3}/>
       comments = <CommentList gameId={3}/>
       howto = <Card>How To Play: Click All the Circles!</Card>
-    }else if(name === 'Side Scroller'){
-      game =  <P5Wrapper sketch={scroller}></P5Wrapper>
-      score = <HighScore gameId={4}/>
-      comments = <CommentList gameId={4}/>
-      howto = <Card>How To Play: Dodge the things! SpaceBar: Jump</Card>
-    }else if(name === 'Space Invaders'){
-      game =  <P5Wrapper sketch={invaders}></P5Wrapper>
-      score = <HighScore gameId={5}/>
-      comments = <CommentList gameId={5}/>
-      howto = <Card>How To Play: Dodge the things! Arrow Keys: Move, SpaceBar: Shoot</Card>
-    }else if(name === 'Missile Command'){
-      game =  <P5Wrapper sketch={command}></P5Wrapper>
-      score = <HighScore gameId={6}/>
-      comments = <CommentList gameId={6}/>
-      howto = <Card>How To Play: Shoot the asteroids before they hit your city! Mouse to move cannon, Click to shoot</Card>
     }
     return (
       <div className="game">

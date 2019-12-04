@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+//fetch all games
 function* fetchGames() {
     try{
         const response = yield axios.get('/api/game')
@@ -9,6 +10,7 @@ function* fetchGames() {
         console.log('FETCH GAMES ERROR:', error);
     }
 }
+//fetch one game, send the id of the game you want
 function* fetchOneGame(action){
     try{
         const response = yield axios.get('/api/game/' + action.payload)
@@ -17,6 +19,7 @@ function* fetchOneGame(action){
         console.log('FETCH ONE GAME ERROR:', error);
     }
 }
+//fetch scores for a game, send the id of the game you want scores for
 function* fetchScores(action){
     try{
         const response = yield axios.get('api/score/' + action.payload)
@@ -25,6 +28,7 @@ function* fetchScores(action){
         console.log('FETCH SCORES ERROR:', error);
     }
 }
+//fetch comments for a game, send the id of hte game you want comments for
 function* fetchComments(action){
     try{
         const response = yield axios.get('api/comment/' + action.payload)
@@ -33,6 +37,7 @@ function* fetchComments(action){
         console.log('FETCH COMMENTS ERROR:', error);
     }
 }
+//fetch all comments for admin moderation
 function* fetchAllComments(){
     try{
         const response = yield axios.get('api/comment/admin')
@@ -41,6 +46,7 @@ function* fetchAllComments(){
         console.log('FETCH COMMENTS ERROR:', error);
     }
 }
+//post a comment, send: { user_id: int, game_id: int, comment: String }
 function* postComment(action){
     try{
         yield axios.post('/api/comment', action.payload)
@@ -49,6 +55,7 @@ function* postComment(action){
         console.log('POST COMMENT ERROR:', error);
     }
 }
+//update a comment, send: { commentId: int, comment: String }
 function* updateComment(action){
     try{
         yield axios.put('api/comment', action.payload)
@@ -58,6 +65,7 @@ function* updateComment(action){
         console.log('UPDATE COMMENT ERROR:', error);
     }
 }
+//allows the admin to update comments, send: { commentId: int, comment: String }
 function* adminUpdateComment(action){
     try{
         yield axios.put('api/comment', action.payload)
@@ -66,6 +74,7 @@ function* adminUpdateComment(action){
         console.log('UPDATE COMMENT ERROR:', error);
     }
 }
+//deletes comments, send: { id: int }
 function* deleteComment(action){
     console.log('DELETE COMMENT ACTION:', action)
     try{
@@ -81,6 +90,7 @@ function* deleteComment(action){
         console.log('DELETE COMMENT ERROR:', error);
     }
 }
+//fetch all favorites for a user, send user id
 function* fetchFavorite(action){
     try{
         const response = yield axios.get('api/favorite/' + action.payload)
@@ -93,6 +103,7 @@ function* fetchFavorite(action){
         console.log('FETCH FAVORITE ERROR', error)
     }
 }
+//adds a favorite, send: { game_id: int, user_id: int }
 function* addFavorite(action){
     try{
         yield axios.post('api/favorite/' + action.payload)
@@ -101,6 +112,7 @@ function* addFavorite(action){
         console.log('ADD FAVORITE:', error)
     }
 }
+//removes a favorite, send { user_id: int, game_id: int }
 function* removeFavorite(action){
     try{
         yield axios.delete('api/favorite/' + action.payload)
@@ -109,6 +121,7 @@ function* removeFavorite(action){
         console.log('REMOVE FAVORITE', error)
     }
 }
+//remove a game from your favorites, send: { user_id: int, game_id: int }
 function* removeMyFavorite(action){
     try{
         yield axios.delete('api/favorite/' + action.payload)
@@ -117,6 +130,7 @@ function* removeMyFavorite(action){
         console.log('REMOVE FAVORITE', error)
     }
 }
+//get all favorites for the logged in user
 function* fetchAllFavorites(){
     try{
         const response =  yield axios.get('api/favorite/all')
@@ -125,6 +139,7 @@ function* fetchAllFavorites(){
         console.log('FETCH ALL FAVS ERROR:', error)
     }
 }
+//get all comments for the logged in user
 function* fetchMyComments(){
     try{
         const response = yield axios.get('api/comment/mine')

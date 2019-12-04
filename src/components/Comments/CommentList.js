@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CommentItem from '../CommentItem/CommentItem';
 import { Button, Input } from 'semantic-ui-react';
 
+//renders the list of comments for the current game as well as allows you to add new comments
 class  CommentList extends Component {
   state = {
     newMessage: '',

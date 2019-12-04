@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
+//favorite button, allows you to favorite and unfavorite games
 class  FavoriteItem extends Component {
   componentDidMount = () =>{
     this.getFavorite();

@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Card, Image } from 'semantic-ui-react';
 
+//renders each game on the home page, navigates you to that game when you click on it
 class  GameItem extends Component {
     goGame = (id) =>{
         this.props.history.push(`/game/${id}`)

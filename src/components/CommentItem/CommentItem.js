@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Icon, Card, Image, Input, Confirm } from 'semantic-ui-react';
 
+//comment component, renders as a card that you can update and delete from.
 class  CommentItem extends Component {
     state = {
         comment: '',
