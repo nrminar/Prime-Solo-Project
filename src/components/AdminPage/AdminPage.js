@@ -5,6 +5,7 @@ import CommentItem from '../CommentItem/CommentItem';
 import { Card } from 'semantic-ui-react';
 import './Admin.css';
 
+//this page displays all the comments for the admin to view and moderate
 class  AdminPage extends Component {
     componentDidMount = () =>{
         this.getComments();

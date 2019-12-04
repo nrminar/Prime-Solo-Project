@@ -42,9 +42,11 @@ class App extends Component {
     return (
       <Router>
         <div>
+          {/* Navigation Menu */}
           <Head>
             <Menu/>
           </Head>
+          {/* Background bubbles */}
           <Back>
             <P5Wrapper sketch={header}></P5Wrapper>
           </Back>

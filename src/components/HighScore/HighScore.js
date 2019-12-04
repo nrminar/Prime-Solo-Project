@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, Table, Card } from 'semantic-ui-react';
 
+//renders the highscore table that shows scores next to usernames and avatar photos
 class  HighScore extends Component {
     render() {
         return (

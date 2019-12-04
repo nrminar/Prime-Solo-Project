@@ -7,6 +7,7 @@ import { Card } from 'semantic-ui-react'
 const GameList = styled.div`
   padding-top: 150px;
 `
+//home page that shows all the games
 class  HomePage extends Component {
     state = {
         games: []

@@ -5,6 +5,7 @@ import { Header, Icon, Menu, Segment, Sidebar, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import './Menu.css'
 
+//navigation bar that allows you to go to everywhere on the site.
 class  MenuItem extends Component {
     state = {
         hidden: false

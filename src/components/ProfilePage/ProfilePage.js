@@ -10,6 +10,7 @@ const Profile = styled.div`
   padding-left: 150px;
   padding-right: 150px;
 `
+//profile page that shows you all your comments and all your favorites in tabs. you can interact with both
 class  ProfilePage extends Component {
   state ={
     favorite: true
